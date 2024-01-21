@@ -23,7 +23,7 @@ import ReactMarkdown from "react-markdown";
 
 export default function CodePage(){
   const router = useRouter();
-  const [messages, setMessages] = useState<>([]);
+  const [messages, setMessages] = useState([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
