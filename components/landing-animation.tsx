@@ -99,7 +99,7 @@ function Geometries() {
 }
 
 function Geometry({ r, position, geometry, soundEffects, materials }) {
-  const meshRef = useRef();
+  const meshRef = useRef<THREE.Group>();
   const [visible, setVisible] = useState(false);
 
   const startingMaterial = getRandomMaterial();
