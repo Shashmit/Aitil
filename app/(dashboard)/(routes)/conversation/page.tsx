@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { CreateChatCompletionRequestMessage } from "openai/resources/index.mjs";
+// import { CreateChatCompletionRequestMessage } from "openai/resources/index.mjs";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ export default function ConversationPage(){
     const router = useRouter();
    
 
-    const [messages, setMessages] = useState<CreateChatCompletionRequestMessage[]>([]);
+    const [messages, setMessages] = useState([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,10 +36,10 @@ export default function ConversationPage(){
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try{
-            const userMessage: CreateChatCompletionRequestMessage ={
-              role: "user",
-              content: values.prompt
-            }
+          const userMessage = {
+            role: "user",
+            content: values.prompt,
+          };
             const newMessages = [...messages,userMessage];
             const response = await axios.post("/api/conversation",{
               messages: newMessages,
