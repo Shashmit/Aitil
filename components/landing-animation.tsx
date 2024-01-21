@@ -111,7 +111,7 @@ function Geometry({ r, position, geometry, soundEffects, materials }) {
   function handleClick(e) {
     const mesh = e.object;
 
-    gsap.utils.random(soundEffects).play();
+    (gsap.utils.random(soundEffects) as HTMLAudioElement).play();
 
     gsap.to(mesh.rotation, {
       x: `+=${gsap.utils.random(0, 2)}`,
@@ -136,7 +136,7 @@ function Geometry({ r, position, geometry, soundEffects, materials }) {
   useEffect(() => {
     let ctx = gsap.context(() => {
       setVisible(true);
-      gsap.from(meshRef.current.scale, {
+      gsap.from(meshRef.current?.scale ?? {}, {
         x: 0,
         y: 0,
         z: 0,
@@ -147,6 +147,7 @@ function Geometry({ r, position, geometry, soundEffects, materials }) {
     });
     return () => ctx.revert();
   }, []);
+  
 
   return (
     <group position={position} ref={meshRef}>
@@ -157,7 +158,7 @@ function Geometry({ r, position, geometry, soundEffects, materials }) {
           onPointerOver={handlePointerOver}
           onPointerOut={handlePointerOut}
           visible={visible}
-          material={startingMaterial}
+            material={startingMaterial as THREE.Material | THREE.Material[]}
         ></mesh>
       </Float>
     </group>
